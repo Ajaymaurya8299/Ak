@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="plane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="96" cy="96" r="88" fill="url(#bg)" stroke="#1e40af" stroke-width="4"/>
+  
+  <!-- Plane shape -->
+  <g transform="translate(96,96) rotate(-30)">
+    <!-- Fuselage -->
+    <ellipse cx="0" cy="0" rx="35" ry="8" fill="url(#plane)" stroke="#374151" stroke-width="2"/>
+    
+    <!-- Wings -->
+    <ellipse cx="-5" cy="0" rx="12" ry="25" fill="url(#plane)" stroke="#374151" stroke-width="2"/>
+    <ellipse cx="15" cy="0" rx="8" ry="15" fill="url(#plane)" stroke="#374151" stroke-width="2"/>
+    
+    <!-- Nose -->
+    <circle cx="30" cy="0" r="4" fill="#fbbf24"/>
+    
+    <!-- Trail -->
+    <path d="M -35 0 Q -45 -3 -50 0 Q -45 3 -35 0" fill="#ef4444" opacity="0.8"/>
+  </g>
+  
+  <!-- Multiplier text -->
+  <text x="96" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="bold" fill="white">AVIATOR</text>
+  <text x="96" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#bfdbfe">Real Money Game</text>
+</svg>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator</title>
+</head>
+<body>
+    <canvas id="iconCanvas" width="512" height="512" style="display: none;"></canvas>
+    <div id="icons"></div>
+    
+    <script>
+        // Generate all required PWA icons from SVG
+        const sizes = [16, 32, 57, 60, 72, 76, 96, 114, 120, 128, 144, 152, 180, 192, 384, 512];
+        const canvas = document.getElementById('iconCanvas');
+        const ctx = canvas.getContext('2d');
+        const iconsContainer = document.getElementById('icons');
+        
+        function generateIcon(size) {
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#1d4ed8');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw border
+            ctx.strokeStyle = '#1e40af';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // Draw plane (simplified)
+            ctx.fillStyle = '#ffffff';
+            ctx.save();
+            ctx.translate(size/2, size/2);
+            ctx.rotate(-Math.PI/6);
+            
+            // Fuselage
+            ctx.beginPath();
+            ctx.ellipse(0, 0, size/8, size/20, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Wings
+            ctx.beginPath();
+            ctx.ellipse(-size/40, 0, size/20, size/12, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(size/25, 0, size/30, size/20, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Nose
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(size/12, 0, size/40, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.restore();
+            
+            // Add text for larger icons
+            if (size >= 128) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${size/16}px Inter, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText('AVIATOR', size/2, size - size/8);
+                
+                ctx.font = `${size/24}px Inter, sans-serif`;
+                ctx.fillStyle = '#bfdbfe';
+                ctx.fillText('Real Money', size/2, size - size/16);
+            }
+            
+            return canvas.toDataURL('image/png');
+        }
+        
+        // Generate all icons
+        sizes.forEach(size => {
+            const dataUrl = generateIcon(size);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = `icon-${size}x${size}.png`;
+            link.textContent = `Download ${size}x${size}`;
+            link.style.display = 'block';
+            link.style.margin = '5px';
+            
+            iconsContainer.appendChild(link);
+        });
+        
+        // Auto-download the main icon
+        setTimeout(() => {
+            const mainIcon = generateIcon(192);
+            const link = document.createElement('a');
+            link.href = mainIcon;
+            link.download = 'icon-192x192.png';
+            link.click();
+        }, 1000);
+    </script>
+</body>
+</html>
